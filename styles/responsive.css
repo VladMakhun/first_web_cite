@@ -1,0 +1,23 @@
+@media (max-width: 768px) {
+
+  .nav-list {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .two-column {
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .container {
+    width: calc(100% - 20px);
+  }
+
+  .card {
+    padding: 15px;
+  }
+}

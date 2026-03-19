@@ -1,0 +1,174 @@
+:root {
+  --color-primary: #1d4e89;
+  --color-accent: #ffb703;
+  --color-bg: #f7f9fc;
+  --color-surface: #ffffff;
+  --color-text: #1f2937;
+  --color-border: #d9e2ec;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.container {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.site-header {
+  background: var(--color-primary);
+  padding: 15px 0;
+}
+
+.nav-list {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.nav-list a:hover {
+  color: var(--color-accent);
+}
+
+.nav-list a.active {
+  color: var(--color-accent);
+}
+
+.site-footer {
+  background: var(--color-primary);
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  margin-top: 30px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+ul,
+ol {
+  padding-left: 20px;
+}
+
+.card {
+  background: var(--color-surface);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.two-column {
+  display: flex;
+  gap: 20px;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+caption {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid var(--color-border);
+}
+
+th {
+  background: var(--color-primary);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background: #f1f5f9;
+}
+
+form {
+  background: var(--color-surface);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(29, 78, 137, 0.15);
+}
+
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.92;
+}
+
+video {
+  width: 100%;
+  max-width: 600px;
+  display: block;
+}
+
+audio {
+  width: 100%;
+  margin-top: 10px;
+}

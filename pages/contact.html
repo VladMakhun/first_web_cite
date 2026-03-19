@@ -5,38 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Сторінка контактів.">
   <title>Контакти</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/responsive.css">
 </head>
 
 <body>
 
-<header>
-  <nav>
-    <a href="../index.html">Головна</a>
-    <a href="./about.html">Про мене</a>
-    <a href="./contact.html">Контакти</a>
-  </nav>
+<header class="site-header">
+  <div class="container">
+    <nav>
+      <ul class="nav-list">
+        <li><a href="../index.html">Головна</a></li>
+        <li><a href="./about.html">Про мене</a></li>
+        <li><a href="./contact.html">Контакти</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
-<main>
+<main class="container">
 
   <h1>Контакти</h1>
 
-  <form action="./submit.html" method="get">
+  <form action="./submit.html" method="get" class="card">
 
     <h2>Зв’яжіться зі мною</h2>
 
     <p>
-      <label for="name">Ім'я: (обов'язково)</label><br>
+      <label for="name">Ім'я (обов'язково):</label><br>
       <input id="name" name="name" type="text" required minlength="2" maxlength="30">
     </p>
 
     <p>
-      <label for="email">Email: (обов'язково)</label><br>
+      <label for="email">Email (обов'язково):</label><br>
       <input id="email" name="email" type="email" required>
     </p>
 
     <p>
-      <label for="phone">Телефон: (обов'язково)</label><br>
+      <label for="phone">Телефон (необов'язково):</label><br>
       <input id="phone" name="phone" type="tel" pattern="[0-9+\-\s]{10,15}" placeholder="+380XXXXXXXXX">
     </p>
 
@@ -65,7 +71,7 @@
 
     <p>
       <label for="message">Повідомлення:</label><br>
-      <textarea id="message" name="message" rows="5" cols="30" minlength="5" maxlength="500"></textarea>
+      <textarea id="message" name="message" rows="5" minlength="5" maxlength="500"></textarea>
     </p>
 
     <p>
@@ -82,8 +88,10 @@
 
 </main>
 
-<footer>
-  <p>&copy; 2026 Махун Владислав</p>
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; 2026 Махун Владислав</p>
+  </div>
 </footer>
 
 </body>
