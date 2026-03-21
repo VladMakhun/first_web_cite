@@ -172,3 +172,30 @@ audio {
   width: 100%;
   margin-top: 10px;
 }
+
+.theme-dark {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-text: #f1f5f9;
+  --color-border: #334155;
+}
+
+.accordion-content {
+  display: none;
+  margin-top: 10px;
+}
+
+.accordion-item.active .accordion-content {
+  display: block;
+}
+
+.accordion-header {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
