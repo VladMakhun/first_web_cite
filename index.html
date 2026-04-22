@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Мій перший навчальний HTML-сайт. Тут представлена інформація про мене.">
-  <title>Мій перший HTML-сайт</title>
-
+  <title>Мій навчальний сайт</title>
   <link rel="stylesheet" href="./styles/style.css">
-  <link rel="stylesheet" href="./styles/responsive.css">
 </head>
-
 <body>
 
 <header class="site-header">
@@ -19,93 +15,45 @@
         <li><a href="./index.html">Головна</a></li>
         <li><a href="./pages/about.html">Про мене</a></li>
         <li><a href="./pages/contact.html">Контакти</a></li>
+        <li><a href="./pages/favorites.html">Обране</a></li>
       </ul>
-
       <button class="theme-toggle">🌙 Тема</button>
     </nav>
   </div>
 </header>
 
 <main class="container">
-
   <h1>Мій перший HTML-сайт</h1>
 
-  <div class="card">
-    <p>Вітаю на моєму сайті! Це моя <strong>друга практика</strong> з даного предмету.</p>
+  <section class="card">
+    <h2>Навчальний каталог</h2>
+    
+    <div class="controls" style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+      <input type="text" id="search" placeholder="Пошук..." style="flex: 1; min-width: 200px;">
+      <select id="categoryFilter"><option value="all">Усі категорії</option><option value="frontend">Frontend</option><option value="backend">Backend</option><option value="design">Design</option></select>
+      <select id="sortOrder">
+        <option value="default">Сортувати за...</option>
+        <option value="rating">За рейтингом</option>
+        <option value="title">За назвою</option>
+      </select>
+    </div>
 
-    <h2>Про сайт</h2>
-    <p>Цей сайт створено для практики HTML5 та знайомства з базовими елементами структури сторінки.</p>
-    <p>Я вивчаю, як працюють <em>семантичні теги</em> та як правильно організувати контент.</p>
-  </div>
+    <div id="loader">Завантаження...</div>
+    <div id="error-message" class="hidden" style="color: red;">Помилка!</div>
+    <div id="empty-message" class="hidden">Нічого не знайдено.</div>
 
-  <div class="card">
-    <h2>Що я вивчаю</h2>
-    <p>Під час навчання я опановую структуру HTML-документів, роботу з текстом та базову верстку.</p>
-
-    <ul>
-      <li>Основи HTML5</li>
-      <li>Семантичні теги</li>
-      <li>Створення таблиць</li>
-      <li>Додавання зображень</li>
-    </ul>
-
-    <ol>
-      <li>Вивчити структуру HTML</li>
-      <li>Створити кілька сторінок</li>
-      <li>Навчитися стилізувати сайт</li>
-    </ol>
-  </div>
-
-  <div class="card">
-    <figure>
-      <img src="pages/assets/img/computer.png" alt="Моє робоче місце для навчання програмуванню">
-      <figcaption>Моє навчальне середовище</figcaption>
-    </figure>
-  </div>
-
-  <div class="card">
-    <h2>Розклад навчання</h2>
-
-    <table>
-      <caption>Мій розклад навчання</caption>
-      <thead>
-        <tr>
-          <th>День</th>
-          <th>Предмет</th>
-          <th>Час</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Понеділок</td>
-          <td>HTML</td>
-          <td>18:00 – 19:30</td>
-        </tr>
-        <tr>
-          <td>Середа</td>
-          <td>CSS</td>
-          <td>18:00 – 19:30</td>
-        </tr>
-        <tr>
-          <td>П’ятниця</td>
-          <td>Практика</td>
-          <td>17:00 – 19:00</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
+    <div id="catalog" class="catalog-grid"></div>
+    <button id="loadMoreBtn" style="margin-top: 20px;">Показати ще</button>
+  </section>
 </main>
 
-<footer class="site-footer">
-  <div class="container">
-    <p>&copy; <span class="year"></span> Махун Владислав</p>
+<div id="modal" class="hidden">
+  <div class="modal-content">
+    <span id="closeModal" style="cursor:pointer; float:right; font-size:24px;">&times;</span>
+    <div id="modal-body"></div>
   </div>
-</footer>
-
-<button class="back-to-top" hidden>↑</button>
+</div>
 
 <script src="./js/main.js" defer></script>
-
 </body>
 </html>

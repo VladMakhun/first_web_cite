@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "title": "HTML5 Основи",
+    "category": "frontend",
+    "description": "Вивчення семантичної верстки та структури документів.",
+    "level": "beginner",
+    "rating": 4.8
+  },
+  {
+    "id": 2,
+    "title": "CSS Grid Майстерність",
+    "category": "frontend",
+    "description": "Сучасні техніки побудови адаптивних сіток.",
+    "level": "intermediate",
+    "rating": 4.9
+  },
+  {
+    "id": 3,
+    "title": "UX Дизайн для розробників",
+    "category": "design",
+    "description": "Основи юзабіліті та інтерфейсного дизайну.",
+    "level": "beginner",
+    "rating": 4.7
+  },
+  {
+    "id": 4,
+    "title": "JavaScript Асинхронність",
+    "category": "frontend",
+    "description": "Робота з Promise, fetch та async/await.",
+    "level": "advanced",
+    "rating": 4.9
+  },
+  {
+    "id": 5,
+    "title": "Node.js та Express",
+    "category": "backend",
+    "description": "Створення серверної частини веб-додатків.",
+    "level": "intermediate",
+    "rating": 4.6
+  },
+  {
+    "id": 6,
+    "title": "Бази даних: SQL",
+    "category": "backend",
+    "description": "Проектування реляційних БД для вебу.",
+    "level": "intermediate",
+    "rating": 4.5
+  },
+  {
+    "id": 7,
+    "title": "Docker для Front-End",
+    "category": "devops",
+    "description": "Контейнеризація веб-проєктів для розгортання.",
+    "level": "advanced",
+    "rating": 4.4
+  },
+  {
+    "id": 8,
+    "title": "Кольорова теорія",
+    "category": "design",
+    "description": "Використання кольорів у сучасних інтерфейсах.",
+    "level": "beginner",
+    "rating": 4.8
+  },
+  {
+    "id": 9,
+    "title": "React: Основи",
+    "category": "frontend",
+    "description": "Компонентний підхід до розробки інтерфейсів.",
+    "level": "intermediate",
+    "rating": 4.9
+  },
+  {
+    "id": 10,
+    "title": "Git та GitHub",
+    "category": "devops",
+    "description": "Системи контролю версій для командної роботи.",
+    "level": "beginner",
+    "rating": 4.7
+  },
+  {
+    "id": 11,
+    "title": "TypeScript для професіоналів",
+    "category": "frontend",
+    "description": "Статична типізація у JavaScript проєктах.",
+    "level": "advanced",
+    "rating": 4.9
+  },
+  {
+    "id": 12,
+    "title": "REST API дизайн",
+    "category": "backend",
+    "description": "Створення масштабованих API інтерфейсів.",
+    "level": "advanced",
+    "rating": 4.6
+  }
+]
