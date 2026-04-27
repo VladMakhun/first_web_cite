@@ -1,150 +1,132 @@
+import { getItems, createItem, deleteItem } from './api.js';
+
 document.addEventListener('DOMContentLoaded', init);
 
-// Глобальний стан для роботи каталогу
 let allItems = [];
 let filteredItems = [];
-let itemsPerPage = 4;
-let visibleCount = 4;
+let visibleCount = 8; // Збільшено для зручності
 
 async function init() {
-  initActiveNav();
-  initThemeToggle();
-  initBackToTop();
-  initAccordion();
-  initContactForm();
-  
-  await initCatalog();
+    initThemeToggle();
+    
+    // Подія закриття модалки
+    document.getElementById('closeModal')?.addEventListener('click', () => {
+        document.getElementById('modal').classList.add('hidden');
+    });
+
+    const searchInput = document.getElementById('search');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortOrder = document.getElementById('sortOrder');
+    
+    searchInput?.addEventListener('input', applyFilters);
+    categoryFilter?.addEventListener('change', applyFilters);
+    sortOrder?.addEventListener('change', applyFilters);
+
+    document.getElementById('itemForm')?.addEventListener('submit', handleFormSubmit);
+
+    await initCatalog();
 }
 
 async function initCatalog() {
-  const catalogContainer = document.getElementById('catalog');
-  if (!catalogContainer) return;
+    const loader = document.getElementById('loader');
+    const errorMsg = document.getElementById('error-message');
+    const emptyMsg = document.getElementById('empty-message');
 
-  const loader = document.getElementById('loader');
-  const errorMsg = document.getElementById('error-message');
-  const searchInput = document.getElementById('search');
-  const categoryFilter = document.getElementById('categoryFilter');
-  const sortOrder = document.getElementById('sortOrder');
-  const loadMoreBtn = document.getElementById('loadMoreBtn');
+    try {
+        loader.classList.remove('hidden');
+        errorMsg.classList.add('hidden');
+        
+        allItems = await getItems(); 
+        
+        loader.classList.add('hidden');
+        if (allItems.length === 0) emptyMsg.classList.remove('hidden');
+        else emptyMsg.classList.add('hidden');
+        
+        applyFilters();
+    } catch (err) {
+        loader.classList.add('hidden');
+        errorMsg.classList.remove('hidden');
+    }
+}
 
-  try {
-    loader.classList.remove('hidden');
-    const response = await fetch('./data/items.json');
-    if (!response.ok) throw new Error('Помилка завантаження');
-    allItems = await response.json();
-    filteredItems = [...allItems];
-    loader.classList.add('hidden');
+function applyFilters() {
+    const searchTerm = document.getElementById('search')?.value.toLowerCase() || '';
+    const category = document.getElementById('categoryFilter')?.value || 'all';
+    const sort = document.getElementById('sortOrder')?.value || 'default';
 
-    updateCatalog();
-
-    // Слухачі подій для фільтрації та пошуку
-    const handleFilter = () => {
-      const searchTerm = searchInput.value.toLowerCase();
-      const category = categoryFilter.value;
-      const sort = sortOrder.value;
-
-      filteredItems = allItems.filter(item => {
-        const matchesSearch = item.title.toLowerCase().includes(searchTerm) || item.description.toLowerCase().includes(searchTerm);
+    filteredItems = allItems.filter(item => {
+        const matchesSearch = item.title?.toLowerCase().includes(searchTerm) || 
+                              item.description?.toLowerCase().includes(searchTerm);
         const matchesCategory = category === 'all' || item.category === category;
         return matchesSearch && matchesCategory;
-      });
-
-      sortItems(sort);
-      visibleCount = 4; // Скидаємо пагінацію
-      updateCatalog();
-    };
-
-    searchInput.addEventListener('input', handleFilter);
-    categoryFilter.addEventListener('change', handleFilter);
-    sortOrder.addEventListener('change', handleFilter);
-
-    // Пагінація (Показати ще)
-    loadMoreBtn.addEventListener('click', () => {
-      visibleCount += 4;
-      updateCatalog();
     });
 
-  } catch (err) {
-    loader.classList.add('hidden');
-    errorMsg.classList.remove('hidden');
-    console.error(err);
-  }
+    if (sort === 'price') filteredItems.sort((a, b) => a.price - b.price);
+    else if (sort === 'title') filteredItems.sort((a, b) => a.title.localeCompare(b.title));
+
+    updateCatalog();
 }
 
-// Сортування (Пункт 7)
-function sortItems(criteria) {
-  if (criteria === 'rating') filteredItems.sort((a, b) => b.rating - a.rating);
-  else if (criteria === 'title') filteredItems.sort((a, b) => a.title.localeCompare(b.title));
+async function handleFormSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const newItem = Object.fromEntries(formData.entries());
+    newItem.price = Number(newItem.price);
+    
+    const error = validateForm(newItem);
+    if (error) { alert(error); return; }
+
+    try {
+        await createItem(newItem);
+        e.target.reset();
+        await initCatalog(); 
+    } catch (err) { alert("Помилка при створенні!"); }
 }
+
+window.handleDelete = async (id) => {
+    if (confirm("Видалити цей запис?")) {
+        try {
+            await deleteItem(id);
+            await initCatalog();
+        } catch (err) { alert("Помилка видалення!"); }
+    }
+};
+
+window.showDetails = (id) => {
+    const item = allItems.find(i => i.id == id);
+    if (!item) return;
+    const modal = document.getElementById('modal');
+    document.getElementById('modal-body').innerHTML = `
+        <h2>${item.title}</h2>
+        <p>${item.description}</p>
+        <p><strong>Ціна:</strong> ${item.price} грн</p>
+        <p><strong>Категорія:</strong> ${item.category}</p>
+    `;
+    modal.classList.remove('hidden');
+};
 
 function updateCatalog() {
-  const container = document.getElementById('catalog');
-  const emptyMsg = document.getElementById('empty-message');
-  const loadMoreBtn = document.getElementById('loadMoreBtn');
-
-  const itemsToRender = filteredItems.slice(0, visibleCount);
-  
-  if (filteredItems.length === 0) emptyMsg.classList.remove('hidden');
-  else emptyMsg.classList.add('hidden');
-
-  container.innerHTML = itemsToRender.map(item => `
-    <div class="card" onclick="showDetails(${item.id})">
-      <h3>${item.title}</h3>
-      <p><strong>Рейтинг:</strong> ${item.rating}</p>
-      <button onclick="event.stopPropagation(); toggleFavorite(${item.id})">❤️</button>
-    </div>
-  `).join('');
-
-  loadMoreBtn.style.display = visibleCount >= filteredItems.length ? 'none' : 'block';
-}
-
-// Модальне вікно (Пункт 10)
-function showDetails(id) {
-  const item = allItems.find(i => i.id === id);
-  const modal = document.getElementById('modal');
-  const body = document.getElementById('modal-body');
-  
-  body.innerHTML = `<h2>${item.title}</h2><p>${item.description}</p><p>Рівень: ${item.level}</p>`;
-  modal.classList.remove('hidden');
-}
-
-document.getElementById('closeModal')?.addEventListener('click', () => {
-  document.getElementById('modal').classList.add('hidden');
-});
-
-// --- Існуючі функції (Nav, Theme, Top, Accordion, Form, Favorite) ---
-function initActiveNav() {
-  const links = document.querySelectorAll('.nav-list a');
-  const current = window.location.pathname;
-  links.forEach(link => { if (current.includes(link.getAttribute('href'))) link.classList.add('is-active'); });
+    const container = document.getElementById('catalog');
+    container.innerHTML = filteredItems.slice(0, visibleCount).map(item => `
+        <div class="card" onclick="showDetails(${item.id})">
+            <h3>${item.title}</h3>
+            <p><strong>Ціна:</strong> ${item.price} грн</p>
+            <button onclick="event.stopPropagation(); handleDelete(${item.id})">🗑️ Видалити</button>
+        </div>
+    `).join('');
 }
 
 function initThemeToggle() {
-  const btn = document.querySelector('.theme-toggle');
-  if (localStorage.getItem('siteTheme') === 'dark') document.body.classList.add('theme-dark');
-  btn?.addEventListener('click', () => {
-    document.body.classList.toggle('theme-dark');
-    localStorage.setItem('siteTheme', document.body.classList.contains('theme-dark') ? 'dark' : 'light');
-  });
+    const btn = document.querySelector('.theme-toggle');
+    if (localStorage.getItem('siteTheme') === 'dark') document.body.classList.add('theme-dark');
+    btn?.addEventListener('click', () => {
+        document.body.classList.toggle('theme-dark');
+        localStorage.setItem('siteTheme', document.body.classList.contains('theme-dark') ? 'dark' : 'light');
+    });
 }
 
-function initBackToTop() {
-  const btn = document.querySelector('.back-to-top');
-  window.addEventListener('scroll', () => { if(btn) btn.hidden = window.scrollY < 300 });
-  btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-}
-
-function initAccordion() {
-  document.querySelectorAll('.accordion-item').forEach(item => {
-    item.querySelector('.accordion-header')?.addEventListener('click', () => item.classList.toggle('active'));
-  });
-}
-
-function initContactForm() { /* Ваша логіка форми */ }
-
-function toggleFavorite(id) {
-  let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-  favs.includes(id) ? favs = favs.filter(i => i !== id) : favs.push(id);
-  localStorage.setItem('favorites', JSON.stringify(favs));
-  alert('Оновлено в обраному!');
+function validateForm(data) {
+    if (!data.title || data.title.length < 3) return "Назва має містити мінімум 3 символи.";
+    if (!data.price || data.price <= 0) return "Вкажіть коректну ціну.";
+    return null;
 }

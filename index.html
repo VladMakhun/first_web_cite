@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Мій навчальний сайт</title>
+  <title>Навчальний каталог - CRUD</title>
   <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
@@ -23,27 +23,43 @@
 </header>
 
 <main class="container">
-  <h1>Мій перший HTML-сайт</h1>
+  <h1>Навчальний каталог (CRUD)</h1>
+
+  <section class="card" style="margin-bottom: 20px;">
+    <h2>Додати новий елемент</h2>
+    <form id="itemForm" style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <input type="text" name="title" placeholder="Назва" required>
+      <input type="text" name="category" placeholder="Категорія" required>
+      <input type="number" name="price" placeholder="Ціна" required>
+      <input type="text" name="description" placeholder="Опис" required>
+      <button type="submit">Додати</button>
+    </form>
+  </section>
 
   <section class="card">
-    <h2>Навчальний каталог</h2>
+    <h2>Каталог</h2>
     
     <div class="controls" style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
       <input type="text" id="search" placeholder="Пошук..." style="flex: 1; min-width: 200px;">
-      <select id="categoryFilter"><option value="all">Усі категорії</option><option value="frontend">Frontend</option><option value="backend">Backend</option><option value="design">Design</option></select>
+      <select id="categoryFilter">
+        <option value="all">Усі категорії</option>
+        <option value="frontend">Frontend</option>
+        <option value="backend">Backend</option>
+        <option value="design">Design</option>
+      </select>
       <select id="sortOrder">
         <option value="default">Сортувати за...</option>
-        <option value="rating">За рейтингом</option>
+        <option value="price">За ціною</option>
         <option value="title">За назвою</option>
       </select>
     </div>
 
-    <div id="loader">Завантаження...</div>
-    <div id="error-message" class="hidden" style="color: red;">Помилка!</div>
-    <div id="empty-message" class="hidden">Нічого не знайдено.</div>
+    <div id="loader">Завантаження даних...</div>
+    <div id="error-message" class="hidden" style="color: red;">Помилка завантаження сервера!</div>
+    <div id="empty-message" class="hidden">Каталог порожній.</div>
 
     <div id="catalog" class="catalog-grid"></div>
-    <button id="loadMoreBtn" style="margin-top: 20px;">Показати ще</button>
+    <button id="loadMoreBtn" style="margin-top: 20px; display: none;">Показати ще</button>
   </section>
 </main>
 
@@ -54,6 +70,6 @@
   </div>
 </div>
 
-<script src="./js/main.js" defer></script>
+<script type="module" src="./js/main.js"></script>
 </body>
 </html>

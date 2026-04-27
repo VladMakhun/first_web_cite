@@ -1,0 +1,106 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "title": "Landing Page",
+      "category": "frontend",
+      "status": "published",
+      "price": 1800,
+      "description": "Односторінковий сайт"
+    },
+    {
+      "id": "2",
+      "title": "CRM-система",
+      "category": "backend",
+      "status": "draft",
+      "price": 5000,
+      "description": "Управління клієнтами"
+    },
+    {
+      "id": "3",
+      "title": "Web Portfolio",
+      "category": "frontend",
+      "status": "published",
+      "price": 1200,
+      "description": "Сайт-портфоліо"
+    },
+    {
+      "id": "4",
+      "title": "UI Kit",
+      "category": "design",
+      "status": "published",
+      "price": 900,
+      "description": "Набір UI елементів"
+    },
+    {
+      "id": "5",
+      "title": "API Service",
+      "category": "backend",
+      "status": "published",
+      "price": 2500,
+      "description": "Сервіс для API"
+    },
+    {
+      "id": "6",
+      "title": "Mobile App",
+      "category": "frontend",
+      "status": "draft",
+      "price": 6000,
+      "description": "Дизайн мобільного додатку"
+    },
+    {
+      "id": "7",
+      "title": "Logo Design",
+      "category": "design",
+      "status": "published",
+      "price": 500,
+      "description": "Розробка логотипу"
+    },
+    {
+      "id": "8",
+      "title": "DB Optimization",
+      "category": "backend",
+      "status": "published",
+      "price": 3200,
+      "description": "SQL оптимізація"
+    },
+    {
+      "id": "9",
+      "title": "Landing Page 2",
+      "category": "frontend",
+      "status": "draft",
+      "price": 1500,
+      "description": "Сайт візитка"
+    },
+    {
+      "id": "10",
+      "title": "System Design",
+      "category": "backend",
+      "status": "published",
+      "price": 4500,
+      "description": "Архітектура системи"
+    },
+    {
+      "title": "222",
+      "category": "Design",
+      "price": "222",
+      "description": "2222222",
+      "id": "62iHX-y0_4M"
+    },
+    {
+      "title": "222",
+      "category": "Design",
+      "price": 222222,
+      "description": "22222",
+      "id": "Uaz_hDzTHFo"
+    },
+    {
+      "title": "11111",
+      "category": "Design",
+      "price": 10000,
+      "description": "dwdwdwdw",
+      "id": "tkGsNeloGz8"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
